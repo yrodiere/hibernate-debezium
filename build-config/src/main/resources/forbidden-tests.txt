@@ -1,0 +1,23 @@
+# Hibernate Debezium
+#
+# License: GNU Lesser General Public License (LGPL), version 2.1 or later
+# See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+
+@ignoreUnresolvable
+@defaultMessage Should not be used
+
+################################################################################################################
+# Some packages that should not be used
+java.awt.**
+sun.**
+org.slf4j.**
+junit.framework.**
+java.beans.**
+
+################################################################################################################
+# Probably meant the other Objects:
+org.jboss.logging.processor.util.Objects
+
+################################################################################################################
+org.assertj.core.api.Assumptions @ Use JUnit's Assume instead of AssertJ's Assumptions, because the latter use dark reflection magic and do not work with JDK11 as of 2018-12-14
+

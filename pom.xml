@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Hibernate Debezium
+ ~
+ ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later
+ ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hibernate.debezium</groupId>
+    <artifactId>hibernate-debezium-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Hibernate Debezium - Parent</name>
+    <description>Parent POM for the Hibernate integration with Debezium</description>
+
+    <url>http://hibernate.org/others</url>
+
+    <inceptionYear>2019</inceptionYear>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://hibernate.atlassian.net/browse/HHH</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/yrodiere/hibernate-debezium.git</connection>
+        <developerConnection>scm:git:git@github.com:yrodiere/hibernate-debezium.git</developerConnection>
+        <url>http://github.com/yrodiere/hibernate-debezium</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <organization>
+        <name>Hibernate</name>
+        <url>http://www.hibernate.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License v2.1 or later</name>
+            <url>http://www.opensource.org/licenses/LGPL-2.1</url>
+            <comments>See also: http://hibernate.org/license</comments>
+        </license>
+    </licenses>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://ci.hibernate.org/job/hibernate-debezium-master/</url>
+    </ciManagement>
+
+    <developers>
+        <developer>
+            <id>yoann.rodiere</id>
+            <name>Yoann Rodière</name>
+            <email>yoann@hibernate.org</email>
+            <organization>Red Hat, Inc.</organization>
+            <url>http://in.relation.to/yoann-rodiere/</url>
+        </developer>
+        <developer>
+            <id>chris.cranford</id>
+            <name>Chris Cranford</name>
+            <email>chris@hibernate.org</email>
+            <organization>Red Hat, Inc.</organization>
+            <url>http://in.relation.to/chris-cranford/</url>
+        </developer>
+    </developers>
+
+    <mailingLists>
+        <mailingList>
+            <name>Hibernate Announcements</name>
+            <post>hibernate-announce@lists.jboss.org</post>
+            <subscribe>https://lists.jboss.org/mailman/listinfo/hibernate-announce</subscribe>
+            <unsubscribe>https://lists.jboss.org/mailman/listinfo/hibernate-announce</unsubscribe>
+            <archive>http://lists.jboss.org/pipermail/hibernate-dev/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Hibernate Commit Notifications</name>
+            <post>hibernate-commits@lists.jboss.org</post>
+            <subscribe>https://lists.jboss.org/mailman/listinfo/hibernate-commits</subscribe>
+            <unsubscribe>https://lists.jboss.org/mailman/listinfo/hibernate-commits</unsubscribe>
+            <archive>http://lists.jboss.org/pipermail/hibernate-commits/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Hibernate Developers</name>
+            <post>hibernate-dev@lists.jboss.org</post>
+            <subscribe>https://lists.jboss.org/mailman/listinfo/hibernate-dev</subscribe>
+            <unsubscribe>https://lists.jboss.org/mailman/listinfo/hibernate-dev</unsubscribe>
+            <archive>http://lists.jboss.org/pipermail/hibernate-dev/</archive>
+            <otherArchives>
+                <otherArchive>http://www.mail-archive.com/hibernate-dev%40lists.jboss.org/index.html</otherArchive>
+            </otherArchives>
+        </mailingList>
+        <mailingList>
+            <name>Hibernate Issue Notifications</name>
+            <post>hibernate-issues@lists.jboss.org</post>
+            <subscribe>https://lists.jboss.org/mailman/listinfo/hibernate-issues</subscribe>
+            <unsubscribe>https://lists.jboss.org/mailman/listinfo/hibernate-issues</unsubscribe>
+            <archive>http://lists.jboss.org/pipermail/hibernate-issues/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <modules>
+        <module>build-config</module>
+        <module>core</module>
+    </modules>
+
+    <properties>
+        <!-- Dependencies versions -->
+
+        <!-- >>> Common -->
+        <version.org.jboss.logging.jboss-logging>3.4.0.Final</version.org.jboss.logging.jboss-logging>
+        <version.org.jboss.logging.jboss-logging-tools>2.2.0.Final</version.org.jboss.logging.jboss-logging-tools>
+
+        <!-- >>> ORM -->
+        <version.org.hibernate>5.4.7.Final</version.org.hibernate>
+        <javadoc.org.hibernate.url>http://docs.jboss.org/hibernate/orm/${parsed-version.org.hibernate.majorVersion}.${parsed-version.org.hibernate.minorVersion}/javadocs/</javadoc.org.hibernate.url>
+        <version.org.hibernate.commons.annotations>5.1.0.Final</version.org.hibernate.commons.annotations>
+
+        <!-- >>> Debezium -->
+        <!-- TODO -->
+
+        <!-- >>> Tests -->
+        <version.org.slf4j>1.7.25</version.org.slf4j>
+        <version.log4j>1.2.16</version.log4j>
+        <version.junit>4.12</version.junit>
+        <version.org.hamcrest>4.12</version.org.hamcrest>
+        <version.org.assertj.assertj-core>3.13.2</version.org.assertj.assertj-core>
+        <!-- We can't upgrade to awaitility 4 at the moment because it depends on Hamcrest 2.x, and JUnit 4 needs Hamcrest 1.x -->
+        <version.org.awaitily>3.1.6</version.org.awaitily>
+        <version.com.h2database>1.4.178</version.com.h2database>
+
+        <!-- >> Build -->
+        <version.buildhelper.plugin>3.0.0</version.buildhelper.plugin>
+        <version.checkstyle.plugin>3.1.0</version.checkstyle.plugin>
+        <version.clean.plugin>3.0.0</version.clean.plugin>
+        <version.compiler.plugin>3.8.1</version.compiler.plugin>
+        <version.deploy.plugin>2.8.2</version.deploy.plugin>
+        <version.org.eclipse.m2e.lifecycle-mapping>1.0.0</version.org.eclipse.m2e.lifecycle-mapping>
+        <version.enforcer.plugin>3.0.0-M1</version.enforcer.plugin>
+        <version.forbiddenapis.plugin>2.7</version.forbiddenapis.plugin>
+        <version.help.plugin>2.2</version.help.plugin>
+        <version.install.plugin>2.5.2</version.install.plugin>
+        <version.jar.plugin>3.0.2</version.jar.plugin>
+        <version.javadoc.plugin>3.1.0</version.javadoc.plugin>
+        <version.nexus-staging.plugin>1.6.8</version.nexus-staging.plugin>
+        <version.processor.plugin>3.2.0</version.processor.plugin>
+        <version.resources.plugin>3.0.2</version.resources.plugin>
+        <version.site.plugin>3.6</version.site.plugin>
+        <version.source.plugin>3.0.1</version.source.plugin>
+        <version.surefire.plugin>2.22.2</version.surefire.plugin>
+        <version.failsafe.plugin>${version.surefire.plugin}</version.failsafe.plugin>
+        <version.jacoco.plugin>0.8.3</version.jacoco.plugin>
+        <version.coveralls.plugin>4.3.0</version.coveralls.plugin>
+        <puppycrawl.checkstyle.version>8.18</puppycrawl.checkstyle.version>
+
+        <!-- JBoss public repository -->
+
+        <jboss.public.repo.id>jboss-public-repository-group</jboss.public.repo.id>
+        <jboss.public.repo.url>https://repository.jboss.org/nexus/content/groups/public-jboss/</jboss.public.repo.url>
+
+        <!-- Repository Deployment URLs -->
+
+        <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
+        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
+        <jboss.releases.repo.baseUrl>https://repository.jboss.org/nexus/</jboss.releases.repo.baseUrl>
+        <jboss.snapshots.repo.id>jboss-snapshots-repository</jboss.snapshots.repo.id>
+        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
+
+        <!-- Build settings -->
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <!-- This is used to generate a link to the standard Java library javadoc -->
+        <javadoc.javase.url>http://download.oracle.com/javase/8/docs/api/</javadoc.javase.url>
+        <!-- Generate Java 13/14 bytecode for tests when building with JDK13/14 -->
+        <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
+        <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+
+        <!-- JDK version required for the build; we target 1.8 since Hibernate ORM 5.3 requires Java 8 -->
+        <jdk.min.version>${maven.compiler.source}</jdk.min.version>
+        <maven.min.version>3.6.0</maven.min.version>
+
+        <!-- Whether javadoc problems (errors, warnings) should fail the build) -->
+        <failOnJavadocError>true</failOnJavadocError>
+
+        <!-- Test settings -->
+        <!-- Set empty default values to avoid Maven leaving property references (${...}) when it doesn't find a value -->
+
+        <surefire.jvm.args.memory>-Xmx512m -Xms128m</surefire.jvm.args.memory>
+        <surefire.jvm.args.jacoco></surefire.jvm.args.jacoco>
+        <failsafe.jvm.args.jacoco></failsafe.jvm.args.jacoco>
+        <!--
+             Pass these properties as system properties to be able to switch to
+             a different database without re-compiling the hibernate.properties file
+             (which is located in a dependency of the integration tests modules)
+         -->
+        <failsafe.jvm.args.hibernate-orm>
+            -Dhibernate.dialect=${db.dialect}
+            -Dhibernate.connection.driver_class=${jdbc.driver}
+            -Dhibernate.connection.url=${jdbc.url}
+            -Dhibernate.connection.username=${jdbc.user}
+            -Dhibernate.connection.password=${jdbc.pass}
+            -Dhibernate.connection.isolation=${jdbc.isolation}
+        </failsafe.jvm.args.hibernate-orm>
+        <surefire.jvm.args>${surefire.jvm.args.memory} ${surefire.jvm.args.jacoco}</surefire.jvm.args>
+        <failsafe.jvm.args>${surefire.jvm.args.memory} ${failsafe.jvm.args.jacoco} ${failsafe.jvm.args.hibernate-orm}</failsafe.jvm.args>
+
+        <!-- Eclipse plugin options -->
+
+        <m2e.apt.activation>jdt_apt</m2e.apt.activation>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${version.org.jboss.logging.jboss-logging}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging-annotations</artifactId>
+                <version>${version.org.jboss.logging.jboss-logging-tools}</version>
+                <scope>provided</scope>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${version.org.hibernate}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-envers</artifactId>
+                <version>${version.org.hibernate}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.common</groupId>
+                <artifactId>hibernate-commons-annotations</artifactId>
+                <version>${version.org.hibernate.commons.annotations}</version>
+            </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${version.org.assertj.assertj-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${version.org.awaitily}</version>
+            </dependency>
+
+            <!-- JDBC drivers -->
+            <!-- Profile-specific driver, used in most database-sensitive integration tests -->
+            <dependency>
+                <groupId>${jdbc.driver.groupId}</groupId>
+                <artifactId>${jdbc.driver.artifactId}</artifactId>
+                <version>${jdbc.driver.version}</version>
+            </dependency>
+
+            <!-- Hibernate ORM testing tools -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-testing</artifactId>
+                <version>${version.org.hibernate}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <showWarnings>true</showWarnings>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <testSource>${maven.compiler.testSource}</testSource>
+                    <testTarget>${maven.compiler.testTarget}</testTarget>
+                    <encoding>UTF-8</encoding>
+                    <!-- needed because of compiler bug: http://bugs.sun.com/view_bug.do?bug_id=6512707 -->
+                    <proc>none</proc>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>parse-orm-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                        <configuration>
+                            <propertyPrefix>parsed-version.org.hibernate</propertyPrefix>
+                            <versionString>${version.org.hibernate}</versionString>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Skip the deploy plugin explicitly: we use nexus-staging-maven-plugin instead -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <configuration>
+                    <serverId>${jboss.releases.repo.id}</serverId>
+                    <!-- The following, by default, is only used for actual releases, not for snapshot deployments -->
+                    <nexusUrl>${jboss.releases.repo.baseUrl}</nexusUrl>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor>hibernate.org</Implementation-Vendor>
+                            <Implementation-Vendor-Id>hibernate.org</Implementation-Vendor-Id>
+                            <Implementation-URL>http://hibernate.org/others</Implementation-URL>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-common-rules</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[${jdk.min.version},)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>${maven.min.version}</version>
+                                </requireMavenVersion>
+                                <banDuplicatePomDependencyVersions />
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-dependency-convergence</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <DependencyConvergence />
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>de.thetaphi</groupId>
+                <artifactId>forbiddenapis</artifactId>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${version.clean.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${version.install.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${version.resources.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${version.site.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${version.jar.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.bsc.maven</groupId>
+                    <artifactId>maven-processor-plugin</artifactId>
+                    <version>${version.processor.plugin}</version>
+                    <executions>
+                        <!-- Run annotation processors on src/main/java sources -->
+                        <execution>
+                            <id>process</id>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                            <phase>generate-sources</phase>
+                            <configuration>
+                                <processors>
+                                    <processor>org.jboss.logging.processor.apt.LoggingToolsProcessor</processor>
+                                </processors>
+                                <!-- Disable usage of the @Generated annotation: too much trouble as requirements are different across JDK8 vs JDK9 -->
+                                <!-- See also: https://github.com/jboss-logging/jboss-logging-tools/pull/60#issuecomment-293088198 -->
+                                <compilerArguments>-Aorg.jboss.logging.tools.addGeneratedAnnotation=false</compilerArguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jboss.logging</groupId>
+                            <artifactId>jboss-logging-processor</artifactId>
+                            <version>${version.org.jboss.logging.jboss-logging-tools}</version>
+                            <scope>compile</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${version.nexus-staging.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${version.javadoc.plugin}</version>
+                    <configuration>
+                        <!-- Fail on error alternative -->
+                        <!-- <additionalparam>-Xdoclint:none</additionalparam> -->
+                        <quiet>true</quiet>
+                        <verbose>false</verbose>
+                        <failOnWarnings>true</failOnWarnings>
+                        <failOnError>true</failOnError>
+                        <!-- Exclude implementation classes from the javadoc -->
+                        <excludePackageNames>*.impl,*.impl.*</excludePackageNames>
+                        <links>
+                            <link>${javadoc.javase.url}</link>
+                            <link>${javadoc.org.hibernate.url}</link>
+                        </links>
+                        <bottom>
+                            <![CDATA[Copyright &copy; ${project.inceptionYear}-{currentYear} <a href="https://www.redhat.com/">Red Hat, Inc.</a> and others. Licensed under the GNU Lesser General Public License (LGPL), version 2.1 or later.]]>
+                        </bottom>
+                        <additionalDependencies>
+                            <additionalDependency>
+                                <groupId>org.jboss.logging</groupId>
+                                <artifactId>jboss-logging-annotations</artifactId>
+                                <version>${version.org.jboss.logging.jboss-logging-tools}</version>
+                            </additionalDependency>
+                        </additionalDependencies>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.source.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${version.deploy.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${version.help.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${version.enforcer.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${version.buildhelper.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>de.thetaphi</groupId>
+                    <artifactId>forbiddenapis</artifactId>
+                    <version>${version.forbiddenapis.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>verify-forbidden-apis</id>
+                            <configuration>
+                                <targetVersion>13</targetVersion>
+                                <!-- if the used Java version is too new, don't fail, just do nothing: -->
+                                <failOnUnsupportedJava>false</failOnUnsupportedJava>
+                                <excludes>
+                                    <!-- JBoss Logger formats messages according to default Locale (bug or feature?) -->
+                                    <exclude>**/*_$logger.class</exclude>
+                                    <!-- JBoss message bundles format messages -->
+                                    <exclude>**/*_$bundle.class</exclude>
+                                </excludes>
+                                <bundledSignatures>
+                                    <!-- These signatures on the top are not specific to any JDK version -->
+                                    <bundledSignature>jdk-system-out</bundledSignature>
+                                    <bundledSignature>jdk-non-portable</bundledSignature>
+                                    <!-- The jdk-reflection is not yet something we can avoid -->
+                                    <!--<bundledSignature>jdk-reflection</bundledSignature>-->
+
+                                    <!-- All following signatures should be replicated for each target JDK version we intend to support -->
+                                    <bundledSignature>jdk-unsafe-1.8</bundledSignature>
+                                    <bundledSignature>jdk-unsafe-9</bundledSignature>
+                                    <bundledSignature>jdk-unsafe-10</bundledSignature>
+                                    <bundledSignature>jdk-unsafe-11</bundledSignature>
+                                    <bundledSignature>jdk-unsafe-12</bundledSignature>
+                                    <bundledSignature>jdk-unsafe-13</bundledSignature>
+
+                                    <bundledSignature>jdk-deprecated-1.8</bundledSignature>
+                                    <bundledSignature>jdk-deprecated-9</bundledSignature>
+                                    <bundledSignature>jdk-deprecated-10</bundledSignature>
+                                    <bundledSignature>jdk-deprecated-11</bundledSignature>
+                                    <bundledSignature>jdk-deprecated-12</bundledSignature>
+                                    <bundledSignature>jdk-deprecated-13</bundledSignature>
+
+                                    <bundledSignature>jdk-internal-1.8</bundledSignature>
+                                    <bundledSignature>jdk-internal-9</bundledSignature>
+                                    <bundledSignature>jdk-internal-10</bundledSignature>
+                                    <bundledSignature>jdk-internal-11</bundledSignature>
+                                    <bundledSignature>jdk-internal-12</bundledSignature>
+                                    <bundledSignature>jdk-internal-13</bundledSignature>
+                                </bundledSignatures>
+                                <failOnMissingClasses>false</failOnMissingClasses>
+                                <failOnUnresolvableSignatures>false</failOnUnresolvableSignatures>
+                                <signaturesArtifacts>
+                                    <signaturesArtifact>
+                                        <groupId>org.hibernate.debezium</groupId>
+                                        <artifactId>hibernate-debezium-build-config</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+                                        <path>forbidden-runtime.txt</path>
+                                    </signaturesArtifact>
+                                </signaturesArtifacts>
+                            </configuration>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>verify-forbidden-test-apis</id>
+                            <configuration>
+                                <targetVersion>${maven.compiler.argument.testTarget}</targetVersion>
+                                <!-- if the used Java version is too new, don't fail, just do nothing: -->
+                                <failOnUnsupportedJava>false</failOnUnsupportedJava>
+                                <failOnUnresolvableSignatures>false</failOnUnresolvableSignatures>
+                                <excludes>
+                                </excludes>
+                                <bundledSignatures>
+                                    <!-- This will automatically choose the right signatures based on 'targetVersion': -->
+                                    <bundledSignature>jdk-unsafe</bundledSignature>
+                                    <bundledSignature>jdk-deprecated</bundledSignature>
+                                    <bundledSignature>jdk-non-portable</bundledSignature>
+                                    <bundledSignature>jdk-internal</bundledSignature>
+                                </bundledSignatures>
+                                <signaturesArtifacts>
+                                    <signaturesArtifact>
+                                        <groupId>org.hibernate.debezium</groupId>
+                                        <artifactId>hibernate-debezium-build-config</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>jar</type>
+                                        <path>forbidden-tests.txt</path>
+                                    </signaturesArtifact>
+                                </signaturesArtifacts>
+                            </configuration>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>testCheck</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${version.checkstyle.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.hibernate.debezium</groupId>
+                            <artifactId>hibernate-debezium-build-config</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${puppycrawl.checkstyle.version}</version>
+                        </dependency>
+                        <!--
+                             force SLF4J dependency to align
+                             Maven internals and CheckStyle's
+                             see https://github.com/jcgay/maven-color/wiki/Problems
+                             If that causes problem, that can be removed
+                             but maven-color won't work -->
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <version>${version.org.slf4j}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-jdk14</artifactId>
+                            <version>${version.org.slf4j}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <!-- Location is relative to the classpath -->
+                        <configLocation>checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <violationSeverity>error</violationSeverity>
+                        <includeTestResources>true</includeTestResources>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <resourceIncludes>**/*.xml,**/*.properties</resourceIncludes>
+                        <!-- generated respectively copied code -->
+                        <excludes>
+                            **/Generated.java,**/TypeHelper*.java,**/MatchSuppressor.java,**/CommentSuppressor.java,**/NeverSuppress.java,
+                            **/*_$logger.java,**/*_$bundle.java
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>check-style</id>
+                            <phase>verify</phase>
+                            <!-- not using checkstyle:checkstyle here, as for
+                                some reason checkstyle:check finds more errors -->
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--
+                    Test configuration
+                 -->
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${version.surefire.plugin}</version>
+                    <configuration>
+                        <forkCount>1</forkCount>
+                        <reuseForks>true</reuseForks>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <runOrder>alphabetical</runOrder>
+                        <argLine>${surefire.jvm.args}</argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${version.failsafe.plugin}</version>
+                    <configuration>
+                        <forkCount>1</forkCount>
+                        <reuseForks>true</reuseForks>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <runOrder>alphabetical</runOrder>
+                        <argLine>${failsafe.jvm.args}</argLine>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>it</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${version.jacoco.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>${version.coveralls.plugin}</version>
+                    <configuration>
+                        <relativeReportDirs>
+                            <relativeReportDir>jacoco-aggregate</relativeReportDir>
+                        </relativeReportDirs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>${jboss.releases.repo.id}</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>${jboss.snapshots.repo.id}</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>IDEA</id>
+            <!--
+            Dependencies to allow easy project import in IntelliJ IDEA.
+            These should not be listed as project dependencies to users
+            but are necessary during compile time as they include the
+            JBoss Logger annotation processor.
+            -->
+            <activation>
+                <!-- This is a trick to have the profile automatically activated by IDEA -->
+                <property>
+                    <name>idea.maven.embedder.version</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging-processor</artifactId>
+                    <version>${version.org.jboss.logging.jboss-logging-tools}</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>eclipse</id>
+            <activation>
+                <property>
+                    <!-- This is a trick to have the profile automatically activated by Eclipse -->
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <!--
+                                This plugin's configuration is used in m2e only.
+                                We want to configure this in a separate profile because the plugin doesn't really exist
+                                and Maven will complain because it doesn't find it if executed outside of Eclipse.
+                             -->
+                            <groupId>org.eclipse.m2e</groupId>
+                            <artifactId>lifecycle-mapping</artifactId>
+                            <version>${version.org.eclipse.m2e.lifecycle-mapping}</version>
+                            <configuration>
+                                <lifecycleMappingMetadata>
+                                    <pluginExecutions>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>de.thetaphi</groupId>
+                                                <artifactId>forbiddenapis</artifactId>
+                                                <versionRange>[1.8,)</versionRange>
+                                                <goals>
+                                                    <goal>check</goal>
+                                                    <goal>testCheck</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <ignore />
+                                            </action>
+                                        </pluginExecution>
+                                    </pluginExecutions>
+                                </lifecycleMappingMetadata>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+        <profile>
+            <id>coverage</id>
+            <properties>
+                <!--
+                    Caution, we use @{...} for late property evaluation here:
+                    http://maven.apache.org/surefire/maven-surefire-plugin/faq.html#late-property-evaluation
+                    This is necessary for Jacoco to work as expected.
+                    However, we wrap the @{...} references into two early-evaluated properties
+                    because in certain environments (IntelliJ IDEA), the use of late property evaluation
+                    is not supported and breaks test execution.
+                    This is because IntelliJ tries to parse the POM to retrieve the surefire/failsafe
+                    argLine and pass them to the test execution directly,
+                    but then fails to evaluate "@{...}" references, resulting in errors.
+                    As a result, this profile will not work in IntelliJ,
+                    but we don't need JaCoCo in IntelliJ anyway.
+                 -->
+                <surefire.jvm.args.jacoco>@{surefire.jvm.args.jacoco.lateEval}</surefire.jvm.args.jacoco>
+                <failsafe.jvm.args.jacoco>@{failsafe.jvm.args.jacoco.lateEval}</failsafe.jvm.args.jacoco>
+                <!--
+                    We don't use @{...} for late property evaluation here,
+                    because these properties are evaluated by the maven-resource-plugin,
+                    which doesn't understand the @{...} syntax but somehow manages to always use late evaluation.
+                 -->
+                <arquillian.wildfly.jvm.args.jacoco>${failsafe.jvm.args.jacoco.lateEval}</arquillian.wildfly.jvm.args.jacoco>
+                <pax-exam.jvm.args.jacoco>${failsafe.jvm.args.jacoco.lateEval}</pax-exam.jvm.args.jacoco>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*_$logger.class</exclude>
+                                <exclude>**/*_$bundle.class</exclude>
+                            </excludes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>jacoco-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>surefire.jvm.args.jacoco.lateEval</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jacoco-prepare-prepare-agent-integration</id>
+                                <!--
+                                    This is necessary in order for the property to be set before we process resources,
+                                    such as arquillian.xml in WildFly tests or maven.properties in OSGi tests.
+                                 -->
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>prepare-agent-integration</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>failsafe.jvm.args.jacoco.lateEval</propertyName>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- =============================== -->
+        <!-- Database profiles               -->
+        <!-- =============================== -->
+        <!-- H2 is the default -->
+        <profile>
+            <id>h2</id>
+            <activation>
+                <property>
+                    <name>inMemoryTests</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <properties>
+                <db.dialect>org.hibernate.dialect.H2Dialect</db.dialect>
+                <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
+                <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
+                <jdbc.driver.version>${version.com.h2database}</jdbc.driver.version>
+                <jdbc.driver>org.h2.Driver</jdbc.driver>
+                <jdbc.url>jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1</jdbc.url>
+                <jdbc.user>sa</jdbc.user>
+                <jdbc.pass>sa</jdbc.pass>
+                <jdbc.isolation />
+            </properties>
+        </profile>
+
+        <!-- The PostgreSQL test environment on ci.hibernate.org -->
+        <profile>
+            <id>ci-postgresql</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.PostgreSQL92Dialect</db.dialect>
+                <jdbc.driver.groupId>org.postgresql</jdbc.driver.groupId>
+                <jdbc.driver.artifactId>postgresql</jdbc.driver.artifactId>
+                <jdbc.driver.version>42.1.1</jdbc.driver.version>
+                <jdbc.driver>org.postgresql.Driver</jdbc.driver>
+                <jdbc.url>jdbc:postgresql://localhost:5432/testingdb</jdbc.url>
+                <jdbc.user>hibernate_user</jdbc.user>
+                <jdbc.pass>hibernate_password</jdbc.pass>
+                <jdbc.isolation />
+            </properties>
+        </profile>
+
+        <!-- The MySQL test environment test environment on ci.hibernate.org -->
+        <profile>
+            <id>ci-mariadb</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</db.dialect>
+                <jdbc.driver.groupId>org.mariadb.jdbc</jdbc.driver.groupId>
+                <jdbc.driver.artifactId>mariadb-java-client</jdbc.driver.artifactId>
+                <jdbc.driver.version>2.2.4</jdbc.driver.version>
+                <jdbc.driver>org.mariadb.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mariadb://localhost/testingdb</jdbc.url>
+                <jdbc.user>hibernate_user</jdbc.user>
+                <jdbc.pass>hibernate_password</jdbc.pass>
+                <jdbc.isolation />
+            </properties>
+        </profile>
+    </profiles>
+</project>
