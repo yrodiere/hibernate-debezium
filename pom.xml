@@ -154,7 +154,7 @@
         <version.failsafe.plugin>${version.surefire.plugin}</version.failsafe.plugin>
         <version.jacoco.plugin>0.8.3</version.jacoco.plugin>
         <version.coveralls.plugin>4.3.0</version.coveralls.plugin>
-        <puppycrawl.checkstyle.version>8.18</puppycrawl.checkstyle.version>
+        <puppycrawl.checkstyle.version>8.29</puppycrawl.checkstyle.version>
 
         <!-- JBoss public repository -->
 
