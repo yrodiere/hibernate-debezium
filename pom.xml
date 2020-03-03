@@ -124,7 +124,7 @@
 
         <!-- >>> Tests -->
         <version.org.slf4j>1.7.25</version.org.slf4j>
-        <version.log4j>1.2.16</version.log4j>
+        <version.log4j>1.2.27</version.log4j>
         <version.junit>4.12</version.junit>
         <version.org.hamcrest>4.12</version.org.hamcrest>
         <version.org.assertj.assertj-core>3.13.2</version.org.assertj.assertj-core>
