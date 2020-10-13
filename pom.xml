@@ -125,7 +125,7 @@
         <!-- >>> Tests -->
         <version.org.slf4j>1.7.25</version.org.slf4j>
         <version.log4j>1.2.27</version.log4j>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.org.hamcrest>4.12</version.org.hamcrest>
         <version.org.assertj.assertj-core>3.13.2</version.org.assertj.assertj-core>
         <!-- We can't upgrade to awaitility 4 at the moment because it depends on Hamcrest 2.x, and JUnit 4 needs Hamcrest 1.x -->
